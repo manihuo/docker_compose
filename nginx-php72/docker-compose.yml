@@ -1,0 +1,18 @@
+version: '3'
+services:
+  web:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ../www/miguo:/usr/share/nginx/html/miguo
+      - ../nginx/log:/var/log/nginx
+    depends_on:
+      - php72
+    links:
+      - php72
+  php72:
+    build: ./phpfpm
+    volumes:
+      - ../www/miguo:/www/miguo
+      - ../php/ini:/usr/local/etc/php/conf.d
